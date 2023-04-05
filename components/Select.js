@@ -10,32 +10,16 @@ import {
 } from "react-native";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
-const Touchable = (text = "Выберите...", onPress) => {
-  const TouchableComponent = () => {
-    return (
-      <TouchableOpacity style={styles.touchableContainer} onPress={onPress}>
-        <Text style={styles.touchableText}>{text}</Text>
-        <Icon name="chevron-right" color={"#555"} size={26} />
-      </TouchableOpacity>
-    );
-  };
-  return { TouchableComponent };
-};
-
 const Select = ({
-  touchableComponent = Touchable,
   SelectValue,
   SetSelectValue,
-  Caption = "",
+  Caption = "Выберите из списка ...",
   vKey = "id",
   vValue = "name",
   data = [],
 }) => {
   const [visible, setVisible] = useState(false);
-  const { TouchableComponent } = touchableComponent(Caption, () =>
-    setVisible(true)
-  );
-
+  
   const vRenderItem = ({ item }, key, value) => (
     <View>
       <TouchableOpacity
@@ -47,7 +31,7 @@ const Select = ({
           //setModalVisible(true);
           //navigation.navigate("Main", { nomenFind: item }); //Переносим на главную
           //alert("ok");
-          SetSelectValue(item?.[key]);
+          SetSelectValue(item?.[value]);
           setVisible(false);
         }}
       >
@@ -63,7 +47,7 @@ const Select = ({
         style={styles.touchableContainer}
         onPress={() => setVisible(true)}
       >
-        <Text style={styles.touchableText}>{SelectValue}</Text>
+        {/* <Text style={styles.touchableText}>{SelectValue}</Text> */}
         <Icon name="chevron-right" color={"#555"} size={26} />
       </TouchableOpacity>
       <Modal visible={visible} animationType="slide">
@@ -71,7 +55,7 @@ const Select = ({
           <TouchableOpacity onPress={() => setVisible(false)}>
             <Icon name="close" color={"#555"} size={26} />
           </TouchableOpacity>
-          <Text>Работает</Text>
+          <Text>{Caption}</Text>
           <FlatList
             data={data}
             keyExtractor={(_, index) => String(index)}

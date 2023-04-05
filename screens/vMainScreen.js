@@ -9,8 +9,6 @@ export default function vMainScreen() {
       <Text>{vtext}</Text>
       <Text>{"\n"}</Text>
       
-
-      
       <TextInput
         style={styles.text}
         value={vtext}

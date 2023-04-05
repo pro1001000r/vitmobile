@@ -19,7 +19,7 @@ const Select = ({
   data = [],
 }) => {
   const [visible, setVisible] = useState(false);
-  
+
   const vRenderItem = ({ item }, key, value) => (
     <View>
       <TouchableOpacity
@@ -52,10 +52,12 @@ const Select = ({
       </TouchableOpacity>
       <Modal visible={visible} animationType="slide">
         <SafeAreaView>
-          <TouchableOpacity onPress={() => setVisible(false)}>
-            <Icon name="close" color={"#555"} size={26} />
-          </TouchableOpacity>
-          <Text>{Caption}</Text>
+          <View style={styles.touchableContainer}>
+            <TouchableOpacity onPress={() => setVisible(false)}>
+              <Icon name="close" color={"#555"} size={26} />
+            </TouchableOpacity>
+            <Text>{Caption}</Text>
+          </View>
           <FlatList
             data={data}
             keyExtractor={(_, index) => String(index)}
@@ -73,6 +75,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   touchableContainer: {
     flexDirection: "row",
